@@ -46,7 +46,7 @@ const PromptBox = ({
 
         
         <div className="text-sm text-slate-500">
-          {notes.length} / 5000 characters
+          {notes.length} 
         </div>
 
        
