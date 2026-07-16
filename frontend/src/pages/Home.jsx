@@ -17,6 +17,9 @@ const Home = () => {
   const [current, setCurrent] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
+  const [wrongCards, setWrongCards] = useState([]);
 
   const handleGenerate = async () => {
     if (!notes.trim()) return;
@@ -42,6 +45,23 @@ const Home = () => {
       setError(err.response?.data?.message || "Failed to generate flashcards.");
     } finally {
       setLoading(false);
+    }
+  };
+  const markCorrect = () => {
+    setCorrect((prev) => prev + 1);
+
+    if (current < cards.length - 1) {
+      setCurrent((prev) => prev + 1);
+    }
+  };
+
+  const markWrong = () => {
+    setWrong((prev) => prev + 1);
+
+    setWrongCards((prev) => [...prev, cards[current]]);
+
+    if (current < cards.length - 1) {
+      setCurrent((prev) => prev + 1);
     }
   };
 
@@ -94,13 +114,19 @@ const Home = () => {
               </button>
             </div>
 
-            <div className="flex justify-center gap-4 mt-6">
-              <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow">
-                ✅ Correct
+            <div className="flex justify-center gap-5 mt-8">
+              <button
+                onClick={markCorrect}
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+              >
+                ✅ I Knew This
               </button>
 
-              <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow">
-                ❌ Wrong
+              <button
+                onClick={markWrong}
+                className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+              >
+                ❌ Review Again
               </button>
             </div>
           </div>

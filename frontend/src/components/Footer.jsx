@@ -6,9 +6,7 @@ const Footer = () => {
           © {new Date().getFullYear()} AI Study Assistant
         </p>
 
-        <p className="text-sm text-slate-500">
-          Built with React ⚛️ & Gemini AI 🤖
-        </p>
+        
       </div>
     </footer>
   );
