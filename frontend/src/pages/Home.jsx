@@ -9,21 +9,7 @@ import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import Footer from "../components/Footer";
 import Stats from "../components/Stats";
-
-const dummyCards = [
-  {
-    question: "What is React?",
-    answer: "A JavaScript library for building user interfaces.",
-  },
-  {
-    question: "What is useState?",
-    answer: "A React Hook used to store state.",
-  },
-  {
-    question: "What is JSX?",
-    answer: "JavaScript XML syntax used in React.",
-  },
-];
+import api from "../api/api";
 
 const Home = () => {
   const [notes, setNotes] = useState("");
@@ -37,18 +23,23 @@ const Home = () => {
 
     setLoading(true);
     setError("");
+    setCards([]);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await api.post("/ai/generate", {
+        notes,
+      });
 
-      setCards([]);
-      setCurrent(0);
-
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-setCards(dummyCards);
+      if (response.data.success && Array.isArray(response.data.flashcards)) {
+        setCards(response.data.flashcards);
+        setCurrent(0);
+      } else {
+        setError("Invalid AI response.");
+      }
     } catch (err) {
-      setError("Failed to generate flashcards.");
+      console.error(err);
+
+      setError(err.response?.data?.message || "Failed to generate flashcards.");
     } finally {
       setLoading(false);
     }
@@ -76,7 +67,7 @@ setCards(dummyCards);
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrorMessage message={error} />
+          <ErrorMessage message={error} onRetry={handleGenerate} />
         ) : cards.length === 0 ? (
           <EmptyState />
         ) : (
