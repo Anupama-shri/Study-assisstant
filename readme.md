@@ -1,10 +1,10 @@
-# 📚 AI Study Assistant
+#  AI Study Assistant
 
 An AI-powered Study Assistant built with **React**, **Node.js**, and a **Large Language Model (LLM)**. Users can paste study notes and instantly generate interactive **Flashcards** or **Multiple Choice Quizzes**. The application focuses on structured AI output, robust error handling, and an engaging learning experience.
 
 ---
 
-## ✨ Features
+##  Features
 
 ### 📖 Flashcard Mode
 - Generate AI-powered flashcards from free-form study notes.
