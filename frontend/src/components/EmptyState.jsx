@@ -3,8 +3,8 @@ import { BookOpenCheck } from "lucide-react";
 const EmptyState = () => {
   return (
     <div className="mt-12 bg-white dark:bg-slate-900 rounded-3xl shadow-lg border border-slate-200 dark:border-slate-800 p-12 text-center transition-colors duration-300">
-      <div className="w-20 h-20 mx-auto rounded-full bg-blue-100 dark:bg-blue-950/30 flex items-center justify-center">
-        <BookOpenCheck size={40} className="text-blue-600 dark:text-blue-400" />
+      <div className="w-20 h-20 mx-auto rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+        <BookOpenCheck size={40} className="text-primary" />
       </div>
 
       <h2 className="text-2xl font-bold mt-6 text-slate-800 dark:text-slate-100">

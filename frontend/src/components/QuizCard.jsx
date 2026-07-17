@@ -21,7 +21,7 @@ const QuizCard = ({ card, onAnswer, onNext, isLast }) => {
 
   const getOptionStyle = (index) => {
     if (!isRevealed) {
-      return "border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50/15 dark:hover:bg-blue-950/10 hover:shadow-xs";
+      return "border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 hover:shadow-xs";
     }
     if (index === card.correctIndex) {
       return "border-emerald-500 bg-emerald-50/50 text-emerald-900 dark:bg-emerald-950/20 dark:text-emerald-300 ring-2 ring-emerald-500/25";
@@ -34,7 +34,7 @@ const QuizCard = ({ card, onAnswer, onNext, isLast }) => {
 
   const getBubbleStyle = (index) => {
     if (!isRevealed) {
-      return "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-455 group-hover:bg-blue-500 group-hover:text-white dark:group-hover:bg-blue-500 dark:group-hover:text-slate-900 transition-all duration-200";
+      return "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-455 group-hover:bg-primary group-hover:text-white dark:group-hover:bg-primary dark:group-hover:text-slate-900 transition-all duration-200";
     }
     if (index === card.correctIndex) {
       return "bg-emerald-500 text-white dark:bg-emerald-550 dark:text-white shadow-sm";

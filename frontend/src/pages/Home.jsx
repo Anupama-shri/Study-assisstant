@@ -359,7 +359,7 @@ const Home = () => {
                       setShowStarredOnly(!showStarredOnly);
                       setCurrent(0);
                     }}
-                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${showStarredOnly ? "bg-blue-600" : "bg-slate-250 dark:bg-slate-700"
+                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${showStarredOnly ? "bg-primary" : "bg-slate-250 dark:bg-slate-700"
                       }`}
                   >
                     <span
@@ -392,7 +392,7 @@ const Home = () => {
               </p>
               <button
                 onClick={() => setShowStarredOnly(false)}
-                className="px-4 py-2 text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-xs transition cursor-pointer"
+                className="px-4 py-2 text-sm font-semibold bg-primary hover:bg-primary/90 text-white rounded-xl shadow-xs transition cursor-pointer"
               >
                 Show All Cards
               </button>
