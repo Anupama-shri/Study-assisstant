@@ -1,6 +1,8 @@
 #  AI Study Assistant
 
-An AI-powered Study Assistant built with **React**, **Node.js**, and a **Large Language Model (LLM)**. Users can paste study notes and instantly generate interactive **Flashcards** or **Multiple Choice Quizzes**. The application focuses on structured AI output, robust error handling, and an engaging learning experience.
+An AI-powered Study Assistant built with **React**, **Node.js**, **Express.js**, and a **Large Language Model (LLM)**. Users can paste study notes or any topic, and the application generates interactive **Flashcards** or **Multiple Choice Quizzes**. Instead of displaying raw AI responses, the application parses structured JSON returned by the AI and renders an engaging, interactive learning experience.
+
+This project was developed as part of the **Frontend Internship Assignment**.
 
 ---
 
@@ -9,43 +11,57 @@ An AI-powered Study Assistant built with **React**, **Node.js**, and a **Large L
 ### 📖 Flashcard Mode
 - Generate AI-powered flashcards from free-form study notes.
 - Interactive flip animation.
-- Navigate through flashcards.
-- Mark cards as **Known** or **Review Again**.
-- Track learning progress.
+- Previous / Next navigation.
+- Star important flashcards.
+- Keyboard navigation (Enter / Space to flip).
+- Beautiful card animations.
 
 ### 📝 Quiz Mode
-- Generate multiple-choice quizzes from study notes.
-- Four options per question.
+- Generate AI-powered multiple-choice quizzes.
+- Four options for every question.
 - Instant answer validation.
-- Explanation for every correct answer.
-- Score tracking.
-- Final result summary.
+- Correct answer explanation.
+- Live score tracking.
+- Final performance summary.
 
 ### 🔄 Review Wrong Answers
-- Incorrectly answered questions are stored.
-- Reattempt only the questions answered incorrectly.
+- Stores incorrectly answered quiz questions.
+- Retry only the wrong answers.
+- Helps reinforce learning.
 
-### 📚 Study History
-- Every generated session is automatically saved.
-- View previous study sessions.
-- Reload old flashcards/quizzes without regenerating.
-- Stored locally using Local Storage.
+###  Starred Flashcards
+- Mark important flashcards.
+- Easily identify important concepts while revising.
 
-### 📊 Progress Tracking
+###  Study History
+- Automatically saves every generated session.
+- Sidebar displaying previous study sessions.
+- Reload previous flashcards or quizzes instantly.
+- History persists using Local Storage.
+
+###  Progress Tracking
 - Live progress bar.
-- Correct/Wrong answer count.
-- Session summary after completion.
+- Correct/Wrong answer statistics.
+- Completion summary.
+- Progress updates in real time.
 
-### 📱 Responsive Design
-- Mobile-friendly interface.
-- Desktop and tablet support.
-- Modern UI built using Tailwind CSS.
+###  Local Storage Support
+- Saves study history.
+- Saves generated flashcards.
+- Saves quizzes.
+- Preserves user sessions even after page refresh.
+
+###  Responsive UI
+- Fully responsive.
+- Optimized for Desktop, Tablet, and Mobile devices.
+- Modern, clean, and intuitive interface.
 
 ---
 
 # 🛠 Tech Stack
 
 ## Frontend
+
 - React
 - Vite
 - Tailwind CSS
@@ -53,15 +69,17 @@ An AI-powered Study Assistant built with **React**, **Node.js**, and a **Large L
 - Lucide React Icons
 
 ## Backend
+
 - Node.js
 - Express.js
 
 ## AI
-- Google Gemini API (or Groq API)
+
+- Google Gemini API / Groq API
 
 ---
 
-# 📂 Project Structure
+#  Project Structure
 
 ```
 Study-Assistant/
@@ -69,30 +87,34 @@ Study-Assistant/
 ├── frontend/
 │   ├── src/
 │   │   ├── api/
+│   │   ├── assets/
 │   │   ├── components/
 │   │   ├── pages/
-│   │   └── App.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
 │   └── package.json
 │
 ├── backend/
 │   ├── controllers/
 │   ├── routes/
 │   ├── app.js
-│   └── package.json
+│   ├── package.json
+│   └── .env
 │
 └── README.md
 ```
 
 ---
 
-# 🚀 Getting Started
+#  Getting Started
 
-## 1. Clone the repository
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/ai-study-assistant.git
+git clone https://github.com/your-username/AI-Study-Assistant.git
 
-cd ai-study-assistant
+cd AI-Study-Assistant
 ```
 
 ---
@@ -121,16 +143,18 @@ npm install
 
 Create a `.env` file inside the **backend** folder.
 
-Example:
+### Using Gemini
 
-```
+```env
 GEMINI_API_KEY=your_api_key
 PORT=5000
 ```
 
 or
 
-```
+### Using Groq
+
+```env
 GROQ_API_KEY=your_api_key
 PORT=5000
 ```
@@ -155,13 +179,13 @@ npm run dev
 
 ---
 
-The application will be available at
+The frontend runs at:
 
 ```
 http://localhost:5173
 ```
 
-Backend runs at
+The backend runs at:
 
 ```
 http://localhost:5000
@@ -169,15 +193,26 @@ http://localhost:5000
 
 ---
 
-# 🧠 AI Usage
+#  Usage
 
-The application sends the user's study notes to a Large Language Model through a secure backend API.
+1. Enter your study notes or any topic.
+2. Select either:
+   -  Flashcards
+   -  Quiz
+3. Click **Generate**.
+4. Study using the generated flashcards or quiz.
+5. Review wrong answers if needed.
+6. Revisit previous study sessions using the History Sidebar.
 
-The model is instructed to return **structured JSON** instead of plain text.
+---
 
-Depending on the selected mode, the model generates:
+#  AI Usage
 
-### Flashcards
+The application sends user notes to an LLM through a secure backend API.
+
+The AI is instructed to always return **structured JSON** instead of raw text.
+
+## Flashcard Format
 
 ```json
 {
@@ -190,7 +225,7 @@ Depending on the selected mode, the model generates:
 }
 ```
 
-### Quiz
+## Quiz Format
 
 ```json
 {
@@ -203,84 +238,129 @@ Depending on the selected mode, the model generates:
         "...",
         "..."
       ],
-      "correctIndex": 1,
+      "correctIndex": 2,
       "explanation": "..."
     }
   ]
 }
 ```
 
-The frontend parses this JSON and renders interactive UI components instead of displaying raw AI responses.
+The frontend validates, parses, and renders the structured data as interactive UI components.
 
 ---
 
-# ⚠ Error Handling
+#  Error Handling
 
-The application gracefully handles common AI failures:
+The application gracefully handles AI failures, including:
 
 - Empty input validation
-- Invalid JSON responses
-- Unexpected response structure
-- API/network failures
+- API failures
+- Invalid JSON
+- Unexpected response format
+- Slow responses
 - Loading state
-- Retry option on failure
+- Error messages
 - Empty state
-- Backend API key protection
+- Prevents stale responses from overwriting newer ones
 - Prevents application crashes
 
 ---
 
-# 💾 Local Storage
+#  Local Storage
 
 The application stores:
 
-- Study history
-- Previous flashcards
-- Previous quizzes
-- User progress
-- Wrong-answer sessions
+- Study History
+- Generated Flashcards
+- Generated Quizzes
+- Wrong Answer Sessions
+- User Progress
 
-This allows users to revisit previously generated study material without making another AI request.
-
----
-
-# 🎨 UI Features
-
-- Modern glassmorphism-inspired interface
-- Gradient backgrounds
-- Responsive layout
-- Interactive flashcards
-- Animated progress bar
-- Quiz explanations
-- Icons using Lucide React
-- Clean navigation
-- Keyboard-friendly interactions
+This allows users to continue studying without regenerating AI responses.
 
 ---
 
-# 🤖 AI Assistance Used
+#  UI Features
 
-AI tools were used to:
+- Modern glassmorphism-inspired UI
+- Beautiful gradients
+- Animated flashcards
+- Interactive quiz interface
+- Sidebar History
+- Progress bar
+- Responsive design
+- Keyboard accessibility
+- Smooth transitions
+- Lucide Icons
 
-- Brainstorm project structure
-- Generate prompt templates
-- Improve UI/UX ideas
+---
+
+
+#  Live Demo
+
+The application is deployed and can be accessed here:
+
+** Live Application:**  
+https://study-assisstant-dvij-nine.vercel.app/
+
+
+-  Generate AI-powered Flashcards
+-  Generate Interactive Quizzes
+-  Review Incorrect Answers
+-  Star Important Flashcards
+-  View Previous Study Sessions
+-  Track Learning Progress
+-  Experience the Responsive UI
+-  Persistent Study History using Local Storage
+
+
+
+#  Demo Video
+
+A short screen recording demonstrating the application can be viewed here:
+
+**Demo Video:**  
+🔗 **https://drive.google.com/file/d/17yxRsw8ACwX-D3ER4Sizk-3XOnEmqMzG/view?usp=drivesdk**
+
+The demonstration includes:
+
+-  Flashcard Generation
+-  Quiz Generation
+-  Review Wrong Answers
+-  Study History Sidebar
+-  Progress Tracking
+-  Responsive Design
+-  Error Handling
+-  Local Storage Persistence
+
+
+
+---
+
+# AI Assistance Used
+
+AI tools (ChatGPT) were used to:
+
+- Brainstorm project architecture
+- Design UI components
+- Improve React component structure
 - Debug React and Express issues
-- Refactor components
-- Suggest error handling strategies
-- Improve code organization
+- Generate prompt templates
+- Improve error handling
+- Refactor reusable components
+- Suggest UI/UX improvements
 
-All generated code was reviewed, understood, integrated, and modified before inclusion in the project.
+All generated code was reviewed, understood, modified, and integrated manually before submission.
 
 ---
 
-# ⚠ Known Limitations
+#  Known Limitations
 
-- AI responses depend on the quality of the provided notes.
-- LLMs may occasionally return malformed or unexpected JSON despite prompt constraints.
+- AI output quality depends on the quality of user-provided notes.
+- Large Language Models may occasionally return malformed JSON.
 - Study history is stored locally and is not synchronized across devices.
-- Requires an active internet connection to generate new content.
-- API rate limits or temporary service unavailability may affect response generation.
+- Internet connection is required to generate new flashcards or quizzes.
+- API rate limits may temporarily affect generation speed.
 
 ---
 
@@ -289,25 +369,44 @@ All generated code was reviewed, understood, integrated, and modified before inc
 Approximately **8 hours**, including:
 
 - UI Design
-- React Development
+- Frontend Development
 - Backend Development
 - AI Integration
-- Error Handling
 - Local Storage
-- Testing and Debugging
+- Error Handling
+- Responsive Design
+- Testing & Debugging
 
 ---
 
-# 📹 Demo
 
-A short screen recording demonstrating the application's functionality is included with the submission.
+
+
+#  Future Improvements
+
+- User Authentication
+- Cloud Storage for History
+- PDF Upload Support
+- Dark/Light Theme Toggle
+- AI-powered Study Recommendations
+- Export Flashcards as PDF
+- Flashcard Categories
+- Voice Support
+- Multi-language Support
 
 ---
 
-# 👨‍💻 Author
+#  Author
 
 **Anupama Shrivastava**
 
-B.Tech Computer Science (IoT)
+B.Tech – Computer Science (Internet of Things)
 
 Pranveer Singh Institute of Technology
+
+
+
+
+
+---
+
