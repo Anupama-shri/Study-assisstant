@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 
-// Configure CORS
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://study-assisstant-dvij-nine.vercel.app"
