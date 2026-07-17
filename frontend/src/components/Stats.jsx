@@ -1,27 +1,27 @@
-import { Brain, BookOpen, Trophy } from "lucide-react";
+import { Brain, CheckCircle2, XCircle } from "lucide-react";
 
-const Stats = ({ total }) => {
+const Stats = ({ total, correct = 0, wrong = 0 }) => {
+  const hasStarted = correct > 0 || wrong > 0;
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
-
-      <div className="bg-white rounded-2xl shadow p-6">
-        <Brain className="text-blue-600 mb-3" />
-        <h3 className="text-2xl font-bold">{total}</h3>
-        <p className="text-slate-500">Flashcards</p>
+    <div className="grid grid-cols-3 gap-4 sm:gap-5 mt-10 transition-colors duration-300">
+      <div className="bg-white dark:bg-slate-900/50 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800/80 p-5 text-center">
+        <Brain className="text-primary mx-auto mb-2.5" size={22} />
+        <h3 className="text-xl sm:text-2xl font-extrabold text-brand-text">{total}</h3>
+        <p className="text-xs font-semibold text-brand-text/50 uppercase tracking-wider">Total Items</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <BookOpen className="text-green-600 mb-3" />
-        <h3 className="text-2xl font-bold">AI</h3>
-        <p className="text-slate-500">Powered Learning</p>
+      <div className="bg-white dark:bg-slate-900/50 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800/80 p-5 text-center">
+        <CheckCircle2 className="text-emerald-500 mx-auto mb-2.5" size={22} />
+        <h3 className="text-xl sm:text-2xl font-extrabold text-brand-text">{correct}</h3>
+        <p className="text-xs font-semibold text-brand-text/50 uppercase tracking-wider">Correct</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-6">
-        <Trophy className="text-yellow-500 mb-3" />
-        <h3 className="text-2xl font-bold">100%</h3>
-        <p className="text-slate-500">Interactive</p>
+      <div className="bg-white dark:bg-slate-900/50 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800/80 p-5 text-center">
+        <XCircle className="text-rose-500 mx-auto mb-2.5" size={22} />
+        <h3 className="text-xl sm:text-2xl font-extrabold text-brand-text">{wrong}</h3>
+        <p className="text-xs font-semibold text-brand-text/50 uppercase tracking-wider">Wrong</p>
       </div>
-
     </div>
   );
 };

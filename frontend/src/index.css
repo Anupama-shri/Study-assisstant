@@ -1,1 +1,71 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-primary: #431407;
+  --color-secondary: #EC4899;
+  --color-background: #FFF7ED;
+  --color-text: #431407;
+  --color-info: #A855F7;
+  --color-error: #EF4444;
+
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-150: #e2e8f0;
+  --color-slate-200: #e2e8f0;
+  --color-slate-250: #cbd5e1;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-800: #1e293b;
+  --color-slate-850: #1e293b;
+  --color-slate-855: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+  --color-slate-955: #020617;
+}
+
+.dark {
+  --color-primary: #FE7F2D;
+  --color-secondary: #EC4899;
+  --color-background: #000000;
+  --color-text: #EAECF0;
+  --color-info: #BD85FF;
+  --color-error: #EF4444;
+
+  --color-slate-50: #111e26;
+  --color-slate-100: #EAECF0;
+  --color-slate-150: #2d4d5e;
+  --color-slate-200: #2d4d5e;
+  --color-slate-250: #385d73;
+  --color-slate-300: #385d73;
+  --color-slate-400: #8ba2b0;
+  --color-slate-800: #2d4d5e;
+  --color-slate-850: #2d4d5e;
+  --color-slate-855: #2d4d5e;
+  --color-slate-900: #233D4D;
+  --color-slate-955: #111e26;
+  --color-slate-950: #000000;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-brand-bg: var(--color-background);
+  --color-brand-text: var(--color-text);
+  --color-brand-info: var(--color-info);
+  --color-brand-error: var(--color-error);
+
+  --color-slate-50: var(--color-slate-50);
+  --color-slate-100: var(--color-slate-100);
+  --color-slate-150: var(--color-slate-150);
+  --color-slate-200: var(--color-slate-200);
+  --color-slate-250: var(--color-slate-250);
+  --color-slate-300: var(--color-slate-300);
+  --color-slate-400: var(--color-slate-400);
+  --color-slate-800: var(--color-slate-800);
+  --color-slate-850: var(--color-slate-850);
+  --color-slate-855: var(--color-slate-855);
+  --color-slate-900: var(--color-slate-900);
+  --color-slate-955: var(--color-slate-955);
+}
