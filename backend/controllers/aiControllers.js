@@ -1,13 +1,14 @@
 import "dotenv/config";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+const client = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
 });
 
 export const generateFlashcards = async (req, res) => {
   try {
-    const { notes } = req.body;
+    const { notes, mode = "flashcards" } = req.body;
 
     if (!notes || notes.trim() === "") {
       return res.status(400).json({
@@ -16,60 +17,77 @@ export const generateFlashcards = async (req, res) => {
       });
     }
 
-    const prompt = `
-You are an AI Study Assistant.
+    let prompt = "";
+
+    if (mode === "quiz") {
+      prompt = `
+You are an expert AI Study Assistant.
+
+Generate exactly 10 multiple-choice quiz questions.
+
+Return ONLY valid JSON.
+
+Format:
+{
+  "items":[
+    {
+      "question":"...",
+      "options":["A","B","C","D"],
+      "correctIndex":0,
+      "explanation":"..."
+    }
+  ]
+}
+
+Study Notes:
+${notes}
+`;
+    } else {
+      prompt = `
+You are an expert AI Study Assistant.
 
 Generate exactly 10 flashcards.
 
 Return ONLY valid JSON.
 
 Format:
-
 {
-  "flashcards": [
+  "items":[
     {
-      "question": "Question here",
-      "answer": "Answer here"
+      "question":"...",
+      "answer":"..."
     }
   ]
 }
 
-Do not return markdown.
-Do not return explanation.
-Do not return any extra text.
-
 Study Notes:
-
 ${notes}
 `;
-
-    const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-      },
-    });
-
-    const text = response.text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
-
-    let parsed;
-
-    try {
-      parsed = JSON.parse(text);
-    } catch (err) {
-      console.error("Invalid JSON:", text);
-
-      return res.status(500).json({
-        success: false,
-        message: "AI returned invalid JSON.",
-      });
     }
 
-    if (!parsed.flashcards || !Array.isArray(parsed.flashcards)) {
+    const completion = await client.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      temperature: 0.3,
+      response_format: {
+        type: "json_object",
+      },
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+    });
+
+    const parsed = JSON.parse(
+      completion.choices[0].message.content
+    );
+
+    if (
+      !parsed.items ||
+      !Array.isArray(parsed.items) ||
+      parsed.items.length === 0
+    ) {
       return res.status(500).json({
         success: false,
         message: "Unexpected AI response.",
@@ -78,15 +96,16 @@ ${notes}
 
     res.json({
       success: true,
-      flashcards: parsed.flashcards,
+      items: parsed.items.slice(0, 10),
     });
 
   } catch (error) {
-    console.error("Gemini Error:", error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: error.message,
+      message:
+        error?.message || "Failed to generate study material.",
     });
   }
 };
