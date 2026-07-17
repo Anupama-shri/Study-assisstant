@@ -11,7 +11,7 @@ const app = express();
 // Configure CORS
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.FRONTEND_URL
+  "https://study-assisstant.onrender.com"
 ].filter(Boolean);
 
 app.use(cors({
