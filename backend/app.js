@@ -11,7 +11,7 @@ const app = express();
 // Configure CORS
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://study-assisstant.onrender.com"
+  "https://study-assisstant-dvij-nine.vercel.app"
 ].filter(Boolean);
 
 app.use(cors({
